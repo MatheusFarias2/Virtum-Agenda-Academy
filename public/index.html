@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#10101c" />
+  <meta name="description" content="Virtum Agenda: consulte suas aulas, provas e TCCs por curso, semestre e data." />
+  <title>Virtum Agenda — Calendário Acadêmico</title>
+  <link rel="stylesheet" href="assets/app.css?v=prepub-p1-20261112" />
+  <script src="assets/app.js?v=prepub-p1-20261112" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="./" aria-label="Virtum Agenda, início">
+        <span class="brand-mark" aria-hidden="true"><span>V</span></span>
+        <span class="brand-words"><strong>VIRTUM</strong><small>AGENDA ACADÊMICA</small></span>
+      </a>
+      <div class="side-caption">CONSULTA DE AULAS</div>
+      <div class="nav-active"><span class="nav-icon">▦</span> Calendário <span class="nav-dot"></span></div>
+      <div class="sidebar-divider"></div>
+      <div class="side-caption">PERSONALIZE SUA AGENDA</div>
+      <label class="field-label" for="curso">Meu curso</label>
+      <select class="field-select" id="curso"><option value="">Todos os cursos</option></select>
+      <label class="field-label" for="semestre">Semestre acadêmico</label>
+      <select class="field-select" id="semestre"><option value="">Todos os semestres</option></select>
+      <label class="field-label" for="tipo">Tipo de atividade</label>
+      <select class="field-select" id="tipo">
+        <option value="">Todas as atividades</option>
+        <option value="aula">Aulas</option>
+        <option value="prova">Provas</option>
+        <option value="tcc">TCCs</option>
+      </select>
+      <label class="field-label" for="busca">Buscar disciplina ou tutor</label>
+      <div class="search-wrap"><span aria-hidden="true">⌕</span><input id="busca" type="search" placeholder="Digite para buscar..." autocomplete="off" /></div>
+      <button class="clear-filters" id="limpar" type="button">Limpar filtros <span>↗</span></button>
+      <div class="sidebar-bottom">
+        <div class="privacy-icon">◈</div>
+        <strong>Acesso para consulta</strong>
+        <span>As informações exibidas não podem ser editadas neste site.</span>
+        <div class="powered">PRODUTO VIRTUM SYSTEMS <span>•</span> PRÉ-PUBLICAÇÃO</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar"><span><span class="live-indicator"></span> Calendário acadêmico</span><span class="topbar-right"><span id="atualizacao" role="status" aria-live="polite">Carregando agenda...</span><button type="button" id="atualizar-agora" class="refresh-btn" title="Atualizar agora" aria-label="Atualizar agenda agora">↻</button></span></header>
+      <div class="content">
+        <section class="intro">
+          <div><div class="eyebrow"><span class="eyebrow-line"></span> ORGANIZE SUA ROTINA ACADÊMICA</div><h1>Suas aulas, <em>num só lugar.</em></h1><p>Consulte datas, horários e locais das suas próximas atividades.</p></div>
+          <button class="today-btn" type="button" id="voltar-hoje"><span>◷</span> Ir para hoje</button>
+        </section>
+        <div id="demo-banner" class="demo-banner" hidden><span class="demo-symbol">ⓘ</span><span><strong>Modo demonstração.</strong> Esta versão de testes usa informações fictícias. Nenhum dado da faculdade foi publicado.</span></div>
+        <div id="offline-banner" class="offline-banner" hidden role="status">Sem conexão no momento. Exibindo os últimos dados carregados nesta sessão.</div>
+        <div id="error-banner" class="error-banner" hidden role="alert"></div>
+        <section class="stats" aria-label="Resumo da agenda">
+          <article class="stat"><div class="stat-title">Próxima atividade <span class="stat-icon purple">↗</span></div><div class="stat-value" id="proxima">—</div><div class="stat-sub" id="proxima-detalhe">Aguardando dados</div></article>
+          <article class="stat"><div class="stat-title">Dias com atividades <span class="stat-icon violet">▦</span></div><div class="stat-value" id="dias-ativos">—</div><div class="stat-sub">Neste mês, conforme filtros</div></article>
+          <article class="stat"><div class="stat-title">Atividades no mês <span class="stat-icon blue">◫</span></div><div class="stat-value" id="total-atividades">—</div><div class="stat-sub">Aulas, provas e TCCs</div></article>
+        </section>
+        <section class="calendar-card">
+          <div class="calendar-toolbar">
+            <div><div class="overline">PLANEJAMENTO MENSAL</div><h2 id="mes-titulo">Calendário</h2></div>
+            <div class="calendar-controls">
+              <div class="view-switch"><button type="button" class="active" data-view="calendario">Mês</button><button type="button" data-view="semana">Semana</button><button type="button" data-view="lista">Lista</button><button type="button" data-view="planilha">Planilha</button></div>
+              <div class="month-nav"><button type="button" id="prev-month" aria-label="Mês anterior">‹</button><button type="button" id="next-month" aria-label="Próximo mês">›</button></div>
+            </div>
+          </div>
+          <div id="calendar-container"><div class="weekdays"><span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SÁB</span><span>DOM</span></div><div id="calendar-grid" class="calendar-grid" role="grid" aria-label="Calendário mensal"></div></div>
+          <div id="week-container" class="week-container" hidden></div>
+          <div id="list-container" class="list-container" hidden></div>
+          <div id="sheet-container" class="sheet-container" hidden aria-label="Atividades em formato de planilha"></div>
+          <div class="calendar-footer"><div class="legend"><span><i class="dot aula"></i> Aula</span><span><i class="dot prova"></i> Prova</span><span><i class="dot tcc"></i> TCC</span><span><i class="dot feriado"></i> Feriado</span></div><span id="month-info">Selecione um dia para ver detalhes</span></div>
+        </section>
+        <section class="bottom-panels">
+          <article class="details-panel"><div class="panel-head"><div><div class="overline">PROGRAMAÇÃO DO DIA</div><h3 id="selected-title">Selecione uma data</h3></div><div class="panel-decoration">⌁</div></div><div id="day-details" class="day-details"><p class="muted">Selecione um dia com atividade.</p></div></article>
+          <article class="upcoming-panel"><div class="panel-head"><div><div class="overline">FIQUE POR DENTRO</div><h3>Próximas atividades</h3><span class="upcoming-hint">A partir de hoje</span></div><div class="panel-decoration">↗</div></div><div id="upcoming" class="upcoming-list"><p class="muted">Aguardando dados...</p></div></article>
+        </section>
+        <footer class="footer"><span>© Virtum Systems · Virtum Agenda</span><span>Informações para consulta · Confirme alterações com a instituição</span></footer>
+      </div>
+    </main>
+  </div>
+
+  <dialog id="dia-dialog" class="disciplina-dialog" aria-labelledby="dia-titulo">
+    <div class="disciplina-head"><div><p class="disciplina-eyebrow">TODAS AS ATIVIDADES DO DIA</p><h2 id="dia-titulo"></h2><p class="muted">Aulas, provas e TCCs de todos os tutores conforme os filtros gerais.</p></div><button id="dia-fechar" type="button" class="disciplina-close" aria-label="Fechar atividades do dia">✕</button></div>
+    <div class="disciplina-toolbar"><span id="dia-contagem"></span><label for="dia-tutor-filtro">Tutor: <select id="dia-tutor-filtro" aria-label="Filtrar atividades por tutor"><option value="">Todos os tutores</option></select></label></div>
+    <div id="dia-aulas" class="disciplina-aulas"></div>
+  </dialog>
+  <dialog id="disciplina-dialog" class="disciplina-dialog" aria-labelledby="disciplina-titulo">
+    <div class="disciplina-head"><div><p class="disciplina-eyebrow">CRONOGRAMA DA DISCIPLINA</p><h2 id="disciplina-titulo"></h2><p id="disciplina-contexto" class="muted"></p></div><button id="disciplina-fechar" type="button" class="disciplina-close" aria-label="Fechar janela">✕</button></div>
+    <div class="disciplina-toolbar"><span id="disciplina-contagem"></span><span>Somente leitura · Dados do Virtum Academy</span></div>
+    <div id="disciplina-aulas" class="disciplina-aulas"></div>
+  </dialog>
+</body>
+</html>

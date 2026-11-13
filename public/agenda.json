@@ -1,0 +1,107 @@
+{
+  "versao": 1,
+  "demonstracao": true,
+  "atualizado_em": "2026-11-12T18:00:00-03:00",
+  "origem": "Demonstração fictícia para validação da hospedagem",
+  "cursos": [
+    {
+      "id": 101,
+      "nome": "Curso Demonstrativo"
+    }
+  ],
+  "eventos": [
+    {
+      "id": "demo-aula-1",
+      "tipo": "aula",
+      "data": "2026-11-16",
+      "curso_ids": [
+        101
+      ],
+      "cursos": [
+        "Curso Demonstrativo"
+      ],
+      "disciplina": "Introdução à Tecnologia",
+      "titulo": "Introdução à Tecnologia",
+      "semestres": [
+        "1"
+      ],
+      "tutor": "Tutor Exemplo",
+      "local": "Sala Demonstrativa",
+      "hora_inicio": "19:00",
+      "hora_fim": "22:00",
+      "atividade": "AP1",
+      "grupo": "A",
+      "cor_tutor": "#9170DF"
+    },
+    {
+      "id": "demo-aula-2",
+      "tipo": "aula",
+      "data": "2026-11-23",
+      "curso_ids": [
+        101
+      ],
+      "cursos": [
+        "Curso Demonstrativo"
+      ],
+      "disciplina": "Introdução à Tecnologia",
+      "titulo": "Introdução à Tecnologia",
+      "semestres": [
+        "1"
+      ],
+      "tutor": "Tutor Exemplo",
+      "local": "Sala Demonstrativa",
+      "hora_inicio": "19:00",
+      "hora_fim": "22:00",
+      "atividade": "AP2",
+      "grupo": "A",
+      "cor_tutor": "#9170DF"
+    },
+    {
+      "id": "demo-prova-1",
+      "tipo": "prova",
+      "data": "2026-11-30",
+      "curso_ids": [
+        101
+      ],
+      "cursos": [
+        "Curso Demonstrativo"
+      ],
+      "disciplina": "Introdução à Tecnologia",
+      "titulo": "Avaliação Demonstrativa",
+      "semestres": [
+        "1"
+      ],
+      "tutor": "Tutor Exemplo",
+      "local": "Sala Demonstrativa",
+      "hora_inicio": "19:00",
+      "hora_fim": "21:00",
+      "atividade": "PROVA",
+      "grupo": "",
+      "cor_tutor": "#9170DF"
+    },
+    {
+      "id": "demo-tcc-1",
+      "tipo": "tcc",
+      "data": "2026-12-07",
+      "curso_ids": [
+        101
+      ],
+      "cursos": [
+        "Curso Demonstrativo"
+      ],
+      "disciplina": "Projeto Integrador",
+      "titulo": "TCC Demonstrativo",
+      "semestres": [
+        "1"
+      ],
+      "tutor": "Tutor Exemplo",
+      "local": "Sala Demonstrativa",
+      "hora_inicio": "19:00",
+      "hora_fim": "22:00",
+      "atividade": "TCC",
+      "grupo": "",
+      "cor_tutor": "#9170DF"
+    }
+  ],
+  "feriados": []
+}
