@@ -1,0 +1,148 @@
+/*
+ * Virtum Agenda Premium | Fase B1: calendario e planilha
+ * Camada aditiva sobre app.css e virtum-premium-a.css.
+ * Nao redefine --tutor-color; mantem as cores do Virtum Academy nos dialogos.
+ */
+:root {
+  --vb-accent: var(--va-primary, #2f6bff);
+  --vb-border: var(--va-border, #283750);
+  --vb-surface: var(--va-surface, #131e30);
+  --vb-muted: var(--va-muted, #aab8ca);
+}
+
+/* Barra de navegacao: foco na leitura dos dados, nao nos efeitos. */
+.calendar-toolbar { gap: 18px; border-bottom: 1px solid var(--vb-border); }
+.calendar-toolbar h2 { line-height: 1.25; }
+.view-switch button { min-height: 34px; }
+.view-switch button[aria-pressed="true"] { font-weight: 730; }
+.view-switch button:focus-visible, .month-nav button:focus-visible {
+  outline: 2px solid #8bb9ff; outline-offset: 2px;
+}
+
+/* Grade mensal: cedulas equilibradas, numero e volume sempre visiveis. */
+.calendar-grid { grid-auto-rows: minmax(128px, auto); background: #263954; }
+.day { isolation: isolate; min-height: 0; padding: 10px 9px 11px; gap: 7px; }
+.day.outside { opacity: .63; }
+.day.outside:has(.event-chip) { opacity: .85; }
+.day-num { flex: none; color: #deebfa; font-variant-numeric: tabular-nums; }
+.day.today { box-shadow: inset 0 3px #4889ff; }
+.day.today.selected { box-shadow: inset 0 3px #4889ff, inset 0 0 0 2px #4889ff; }
+.day-entries { gap: 5px; }
+.event-chip {
+  min-height: 22px; padding: 4px 6px 4px 8px;
+  border-left-width: 3px; border-radius: 6px;
+  font-size: 10px; font-weight: 650; line-height: 1.35;
+  transition: background-color .15s ease, filter .15s ease;
+}
+.day .event-chip[data-disciplina-id] { cursor: pointer; }
+.day .event-chip[data-disciplina-id]:hover { filter: brightness(1.15); }
+.more-chip {
+  display: inline-flex; align-items: center; align-self: flex-start;
+  border: 1px solid #3c5d88; background: #1a3554;
+  color: #c5dfff; padding: 4px 7px; border-radius: 6px;
+  font-size: 10px; font-weight: 720; line-height: 1.25;
+}
+.va-day-count {
+  position: absolute; right: 9px; top: 12px;
+  display: grid; place-items: center; min-width: 22px; height: 20px;
+  padding-inline: 4px; border: 1px solid #315376;
+  background: #1c3450; color: #bfd8f7; border-radius: 7px;
+  font-size: 10px; font-weight: 750; font-variant-numeric: tabular-nums;
+}
+.day.selected .va-day-count { background: #255098; color: #fff; border-color: #4e8af9; }
+.calendar-footer { padding-block: 14px; }
+#month-info { font-size: 11px; }
+
+/* Semana/lista: variacao de superficie para separar rapidamente dias e eventos. */
+.week-container { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 13px; padding: 19px; }
+.week-day { border-radius: 12px; overflow: hidden; }
+.week-day-head { padding-block: 14px; }
+.week-day .item { padding: 13px 5px; }
+.list-date { font-size: 12px; font-weight: 760; letter-spacing: .1px; }
+.list-container .item { transition: background-color .15s ease; }
+.list-container .item:hover { background: #1a2c45; }
+
+/* Planilha: primeira coluna fixa, separacao entre dias, chips sem ruido visual. */
+.sheet-container { background: var(--vb-surface); padding-bottom: 0; }
+.sheet-intro {
+  background: #15243a; border-bottom: 1px solid #2a415e;
+  padding: 17px 23px; gap: 12px 22px;
+}
+.sheet-intro strong { color: #f3f8ff; font-size: 14px; }
+.sheet-intro span { color: #b1c4de; }
+.sheet-scroll { max-height: min(66vh, 730px); overflow: auto; overscroll-behavior: contain; }
+.sheet-table {
+  table-layout: auto; width: max(100%, 1240px);
+  min-width: 1240px; line-height: 1.5; font-size: 12px;
+}
+.sheet-table th {
+  top: 0; z-index: 3; background: #203451; border-bottom: 1px solid #416082;
+  color: #cbdff7; padding: 15px 13px; letter-spacing: .25px;
+  white-space: nowrap; font-size: 11px;
+}
+.sheet-table td { padding: 13px 13px; border-bottom: 1px solid #293b50; color: #d0deee; }
+.sheet-table th:first-child, .sheet-table td:first-child {
+  position: sticky; left: 0; width: 93px; min-width: 93px; max-width: 93px;
+}
+.sheet-table th:first-child { z-index: 5; background: #203451; }
+.sheet-table td:first-child {
+  z-index: 1; background: #152339; color: #d9eaff;
+  box-shadow: 1px 0 #2c4462;
+}
+.sheet-table tbody tr:nth-child(even) td:first-child { background: #192b43; }
+.sheet-table tbody tr:hover td, .sheet-table tbody tr:focus-within td { background: #213c5e; }
+.sheet-table tbody tr:hover td:first-child, .sheet-table tbody tr:focus-within td:first-child { background: #244268; }
+.sheet-table tr.va-day-group-start td { border-top: 2px solid #466184; }
+.sheet-table .sheet-main { font-weight: 710; min-width: 235px; }
+.sheet-table [data-disciplina-id] .sheet-main { cursor: pointer; }
+.sheet-table .sheet-main:hover { color: #c0dcff; }
+.va-sheet-date { display: inline-flex; font-weight: 770; color: #ddecff; font-size: 12px; }
+.va-type-chip {
+  display: inline-flex; align-items: center; padding: 3px 9px;
+  font-size: 11px; font-weight: 750; border-radius: 6px;
+  border: 1px solid #3b638a; color: #c7e3ff; background: #1e3c5e;
+}
+.va-type-prova { background: #462b39; color: #ffd1da; border-color: #895063; }
+.va-type-tcc { background: #1e414c; color: #b9ebf4; border-color: #3d7382; }
+.sheet-table tr.sheet-holiday td { color: #f2d7a0; }
+.sheet-table tr.sheet-holiday td:first-child { background: #383321; }
+.sheet-ics { padding: 7px 11px; font-weight: 700; }
+.sheet-ics:focus-visible { outline: 2px solid #8bb9ff; outline-offset: 2px; }
+
+/* Densidade opcional: afeta apenas a planilha e preserva todos os registros. */
+.va-density-control { margin-left: auto; display: flex; align-items: center; gap: 4px; padding: 3px; border: 1px solid #365171; border-radius: 9px; background: #101d30; }
+.va-density-control button {
+  color: #b4cae3; background: transparent; border: 0;
+  border-radius: 6px; font-size: 11px; font-weight: 670;
+  min-height: 30px; padding: 5px 11px;
+}
+.va-density-control button[aria-pressed="true"] { background: #285ed6; color: #fff; }
+.va-density-control button:focus-visible { outline: 2px solid #9bc5ff; outline-offset: 2px; }
+.va-sheet-compact .sheet-table td { padding-top: 7px; padding-bottom: 7px; }
+.va-sheet-compact .sheet-table th { padding-top: 10px; padding-bottom: 10px; }
+.va-sheet-compact .sheet-table { font-size: 11px; }
+.va-sheet-compact .va-type-chip { padding-block: 2px; }
+
+@media (max-width: 850px) {
+  .calendar-grid { grid-auto-rows: minmax(112px, auto); }
+  .week-container { grid-template-columns: 1fr; }
+  .sheet-intro { padding: 14px 16px; }
+}
+@media (max-width: 610px) {
+  .calendar-toolbar { padding: 15px 12px; }
+  .calendar-grid { grid-auto-rows: minmax(80px, auto); }
+  .day { padding: 5px 4px 7px; gap: 4px; }
+  .day-entries { gap: 3px; }
+  /* Mobile usa micro-indicadores da Fase A, nao textos truncados. */
+  .event-chip { width: 19px; height: 6px; min-height: 6px; padding: 0; font-size: 0; line-height: 0; border: 0; border-radius: 5px; }
+  .va-day-count { display: none; }
+  .more-chip { font-size: 9px; padding: 2px 3px; background: transparent; border: 0; max-width: 100%; }
+  .sheet-intro { align-items: flex-start; }
+  .va-density-control { margin-left: 0; }
+  .sheet-scroll { max-height: 65vh; }
+  .sheet-table th, .sheet-table td { padding-inline: 10px; }
+  .sheet-table th:first-child, .sheet-table td:first-child { min-width: 74px; width: 74px; max-width: 74px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .event-chip, .list-container .item { transition: none; }
+}
