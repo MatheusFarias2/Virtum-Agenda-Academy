@@ -1,0 +1,126 @@
+/* VIRTUM AGENDA PREMIUM | FASE C1 — Janelas de disciplinas e atividades do dia
+ * Visual e filtros progressivos, sem alterar dados, API ou cores de tutores.
+ */
+:root {
+  --vc-panel: #101b2d;
+  --vc-border: #314462;
+  --vc-accent: var(--va-primary, #2f6bff);
+  --vc-muted: #a8bdd5;
+}
+.va-premium-dialog {
+  color: #eef5ff;
+  width: min(920px, calc(100vw - 40px));
+  max-height: min(90dvh, 920px);
+  background: #0f192a;
+  border: 1px solid #3a5276;
+  border-radius: 18px;
+  box-shadow: 0 28px 90px rgba(1, 6, 18, .74);
+  overscroll-behavior: contain;
+  overflow-x: hidden;
+}
+.va-premium-dialog::backdrop { background: rgba(3, 8, 20, .82); backdrop-filter: blur(7px); }
+.va-premium-dialog .disciplina-head {
+  align-items: flex-start;
+  gap: 20px;
+  padding: 27px 30px 24px;
+  background: linear-gradient(114deg, #162943, #111d30 72%);
+  border-bottom: 1px solid #2b4565;
+}
+.va-premium-dialog .disciplina-head > div { min-width: 0; }
+.va-premium-dialog .disciplina-eyebrow {
+  color: #89b4ff; font-size: 10px; letter-spacing: 1.8px; margin-bottom: 13px;
+}
+.va-premium-dialog .disciplina-head h2 {
+  font-size: clamp(19px, 2.35vw, 29px); line-height: 1.25;
+  letter-spacing: -.6px; margin: 0 0 9px; color: #f4f8ff;
+  overflow-wrap: anywhere; max-width: 770px;
+}
+.va-premium-dialog .disciplina-head .muted { color: #a9bdd3; font-size: 12px; line-height: 1.6; margin: 0; }
+.va-premium-dialog .disciplina-close {
+  display: grid; place-items: center; flex: none;
+  width: 39px; height: 39px; border-radius: 10px;
+  border: 1px solid #4c6484; background: #20324d; color: #ebf3ff;
+  font-size: 17px; transition: background .15s ease;
+}
+.va-premium-dialog .disciplina-close:hover { background: #2c4770; }
+.va-premium-dialog .disciplina-toolbar {
+  background: #142238; border-color: #2b3f59;
+  padding: 12px 30px; color: #b5c8df; font-size: 11px;
+  align-items: center;
+}
+.va-premium-dialog .disciplina-toolbar select { background: #172c48; color: #e9f2ff; border: 1px solid #415d7e; border-radius: 8px; min-height: 34px; }
+.va-premium-dialog .vc-controls {
+  padding: 20px 30px 19px; border-bottom: 1px solid #2c4059;
+  background: #111d2f; display: grid; gap: 14px;
+}
+.va-premium-dialog .vc-overview { display: flex; align-items: baseline; flex-wrap: wrap; gap: 7px; color: #abc2da; }
+.va-premium-dialog .vc-overview-value { font-size: 24px; line-height: 1; letter-spacing: -.5px; font-weight: 800; color: #f2f7ff; }
+.va-premium-dialog .vc-overview-label { font-size: 12px; color: #adbed2; }
+.va-premium-dialog .vc-overview-tutors { font-size: 11px; margin-left: auto; color: #bcd5f5; border: 1px solid #385676; background: #1c324f; border-radius: 7px; padding: 4px 9px; }
+.va-premium-dialog .vc-controls-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(175px, .44fr); gap: 12px; }
+#dia-dialog.va-premium-dialog .vc-controls-row { grid-template-columns: 1fr; }
+.va-premium-dialog .vc-field { display: grid; gap: 7px; min-width: 0; }
+.va-premium-dialog .vc-field-label { text-transform: uppercase; font-size: 10px; letter-spacing: 1.05px; color: #91aac7; font-weight: 740; }
+.va-premium-dialog :is(.vc-search, .vc-tutor-select) {
+  box-sizing: border-box; width: 100%; min-height: 41px; padding: 10px 12px;
+  border-radius: 9px; border: 1px solid #3a5476; background: #182942;
+  color: #f4f8ff; font: inherit; font-size: 12px;
+}
+.va-premium-dialog .vc-search::placeholder { color: #91a5bd; }
+.va-premium-dialog :is(input, select, button):focus-visible { outline: 2px solid #8bb9ff; outline-offset: 3px; }
+.va-premium-dialog .vc-type-row { display: flex; flex-wrap: wrap; gap: 7px; }
+.va-premium-dialog .vc-type-button {
+  min-height: 32px; color: #b3c7e2; background: #1a2a41;
+  border: 1px solid #364c66; border-radius: 8px;
+  padding: 6px 13px; font-size: 11px; font-weight: 700;
+}
+.va-premium-dialog .vc-type-button:hover { color: #f0f6ff; background: #254064; }
+.va-premium-dialog .vc-type-button[aria-pressed="true"] { background: #285ed6; border-color: #497ff1; color: #fff; }
+.va-premium-dialog .vc-results { display: flex; align-items: center; gap: 12px; min-height: 18px; font-size: 11px; color: #a7bad0; }
+.va-premium-dialog .vc-reset { margin-left: auto; background: transparent; border: none; color: #9fc6ff; font-weight: 720; padding: 3px 0; cursor: pointer; }
+.va-premium-dialog .vc-reset:hover { color: #d7eaff; text-decoration: underline; }
+.va-premium-dialog .disciplina-aulas {
+  display: grid; gap: 10px; padding: 20px 30px 28px;
+  overflow: visible; background: #0f192a;
+}
+.va-premium-dialog .disciplina-aula {
+  background: #19283e; border: 1px solid #324760;
+  border-left: 5px solid var(--tutor-color, #6985a6);
+  border-radius: 11px; padding: 16px 18px;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+.va-premium-dialog .disciplina-aula:hover { background: #1c304c; border-color: #496583; border-left-color: var(--tutor-color, #6985a6); }
+.va-premium-dialog .disciplina-aula[hidden] { display: none !important; }
+.va-premium-dialog .disciplina-aula-top { align-items: center; font-size: 13px; color: #edf4fd; }
+.va-premium-dialog .disciplina-aula-top strong { font-size: 14px; font-weight: 740; line-height: 1.45; }
+.va-premium-dialog .disciplina-aula-top span {
+  color: #a8c9f4; font-variant-numeric: tabular-nums;
+  border: 1px solid #354d68; border-radius: 7px;
+  padding: 4px 8px; background: #182b44; font-size: 11px;
+}
+.va-premium-dialog .disciplina-aula-desc { margin-top: 10px; font-size: 12px; color: #aebed1; line-height: 1.6; }
+.va-premium-dialog .disciplina-tutor { color: #d8e7f9; font-size: 12px; font-weight: 650; gap: 10px; margin-top: 11px; }
+.va-premium-dialog .disciplina-cor { height: 11px; width: 11px; box-shadow: 0 0 0 3px rgba(255,255,255,.05); }
+.va-premium-dialog .vc-empty { margin: 4px 30px 26px; padding: 24px; background: #172841; border: 1px dashed #486283; border-radius: 10px; text-align: center; color: #c4d7eb; }
+.va-premium-dialog .vc-empty strong { color: #eff6ff; font-size: 14px; }
+.va-premium-dialog .vc-empty p { font-size: 12px; }
+.va-premium-dialog .vc-empty[hidden] { display: none !important; }
+@media(max-width: 720px) {
+  .va-premium-dialog { width: calc(100vw - 24px); max-height: 93dvh; border-radius: 14px; }
+  .va-premium-dialog .disciplina-head { padding: 20px 18px 18px; }
+  .va-premium-dialog .disciplina-toolbar { padding: 10px 18px; }
+  .va-premium-dialog .vc-controls { padding: 16px 18px; }
+  .va-premium-dialog .vc-controls-row { grid-template-columns: 1fr; }
+  .va-premium-dialog .disciplina-aulas { padding: 17px 18px 22px; gap: 9px; }
+  .va-premium-dialog .vc-empty { margin: 0 18px 20px; }
+  .va-premium-dialog .disciplina-aula { padding: 14px 13px; }
+}
+@media(max-width: 420px) {
+  .va-premium-dialog .disciplina-head h2 { font-size: 19px; }
+  .va-premium-dialog .disciplina-aula-top { align-items: flex-start; }
+  .va-premium-dialog .disciplina-aula-top span { margin-left: 0; }
+  .va-premium-dialog .vc-overview-tutors { margin-left: 0; }
+}
+@media(prefers-reduced-motion: reduce) {
+  .va-premium-dialog .disciplina-aula, .va-premium-dialog .disciplina-close { transition: none; }
+}
